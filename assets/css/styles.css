@@ -1,0 +1,1039 @@
+/* styles.css — Hoja de estilos principal de Ana González Abogada */
+/* Este archivo se completa en las tareas 2.1, 2.2 y 4.x */
+
+/* ============================================================
+   2.1 — CUSTOM PROPERTIES (Design Tokens)
+   ============================================================ */
+
+:root {
+  /* --- Paleta de colores --- */
+  --color-primary:       #0D2545; /* Azul marino profundo */
+  --color-primary-light: #1A3A6B; /* Azul marino claro (hover) */
+
+  --color-accent:        #C9A84C; /* Dorado corporativo */
+  --color-accent-hover:  #A8872E; /* Dorado oscuro */
+
+  --color-white:         #FFFFFF;
+  --color-off-white:     #F8F7F4; /* Fondos de sección alternos */
+  --color-text:          #1C1C1E; /* Texto principal */
+  --color-text-muted:    #5A5A6E; /* Texto secundario */
+  --color-border:        #DDD8CE; /* Bordes de tarjetas */
+
+  --color-error:         #C0392B;
+  --color-success:       #1A7A45;
+
+  /* --- Tipografía --- */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body:    'Lato', system-ui, -apple-system, sans-serif;
+
+  /* Escala tipográfica (base 16 px) */
+  --text-xs:   0.75rem;   /*  12px */
+  --text-sm:   0.875rem;  /*  14px */
+  --text-base: 1rem;      /*  16px */
+  --text-lg:   1.125rem;  /*  18px */
+  --text-xl:   1.25rem;   /*  20px */
+  --text-2xl:  1.5rem;    /*  24px */
+  --text-3xl:  1.875rem;  /*  30px */
+  --text-4xl:  2.25rem;   /*  36px */
+  --text-5xl:  3rem;      /*  48px */
+
+  /* Responsive Hero H1 — clamp(mínimo, preferido, máximo) */
+  --hero-title-size: clamp(2rem, 5vw + 1rem, 4rem);
+
+  /* --- Espaciado (escala 4 px) --- */
+  --space-1:  0.25rem;  /*  4px */
+  --space-2:  0.5rem;   /*  8px */
+  --space-3:  0.75rem;  /* 12px */
+  --space-4:  1rem;     /* 16px */
+  --space-6:  1.5rem;   /* 24px */
+  --space-8:  2rem;     /* 32px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-24: 6rem;     /* 96px */
+
+  /* --- Anchos y layout --- */
+  --max-width:  1200px;
+  --nav-height: 72px;
+
+  /* --- Transiciones base --- */
+  --transition-fast:   200ms ease;
+  --transition-medium: 300ms ease;
+  --transition-slow:   400ms ease;
+
+  /* --- Breakpoints documentados (solo referencia; usar en media queries) ---
+     Base:  0–479px   (móvil pequeño)
+     sm:    480px+    (móvil estándar)
+     md:    768px+    (tablet)
+     lg:    1024px+   (desktop)
+     xl:    1280px+   (desktop grande)
+  --- */
+}
+
+
+/* ============================================================
+   2.2 — CSS RESET Y ESTILOS BASE GLOBALES
+   ============================================================ */
+
+/* --- Box-sizing universal --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Scroll suave y gestión de desbordamiento --- */
+html {
+  scroll-behavior: smooth;
+  /* Evitar incremento de fuente en iOS en modo horizontal */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: hidden; /* Bloquear scroll horizontal (Requisito 8.4) */
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-white);
+  /* Antialiasing mejorado */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Tipografía base (Requisito 7.3) --- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-primary);
+}
+
+p,
+li,
+address,
+figcaption {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.7;
+}
+
+/* Reset de lista para listas de UI */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* --- Imágenes y media --- */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* --- Formularios heredan fuente del body --- */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* --- Evitar desbordamiento de texto largo --- */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* --- Enlace base --- */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* --- Estilos de foco visibles (Requisito 7.6) ---
+   Usamos :focus-visible para mostrar el outline solo cuando
+   el usuario navega con teclado, no al hacer clic con ratón.
+   El outline cumple el ratio de contraste requerido por WCAG 2.1 AA.
+*/
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Eliminar outline por defecto del navegador para todos los
+   elementos interactivos; :focus-visible lo restaura cuando procede */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Garantizar foco visible en elementos de formulario */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Garantizar foco visible en botones y enlaces */
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* --- Transiciones base en elementos interactivos (Requisito 7.4) ---
+   Duración entre 200 ms y 400 ms según el diseño.
+*/
+a,
+button,
+input,
+textarea,
+select,
+[role="button"] {
+  transition:
+    color           var(--transition-fast),
+    background-color var(--transition-fast),
+    border-color    var(--transition-fast),
+    box-shadow      var(--transition-fast),
+    outline-color   var(--transition-fast);
+}
+
+/* --- prefers-reduced-motion (accesibilidad) ---
+   Desactiva animaciones y transiciones para usuarios que
+   hayan configurado su sistema operativo con movimiento reducido.
+*/
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   4.1 — NAVIGATION BAR
+   ============================================================ */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: background-color var(--transition-medium), box-shadow var(--transition-medium);
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-height);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* Logo */
+.navbar__logo {
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.navbar__logo-text {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-white);
+  letter-spacing: 0.02em;
+}
+
+/* Nav links — desktop */
+.navbar__links {
+  display: flex;
+  gap: var(--space-8);
+  list-style: none;
+}
+
+.navbar__links a {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-white);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: var(--space-2) 0;
+  position: relative;
+}
+
+.navbar__links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-accent);
+  transition: width var(--transition-medium);
+}
+
+.navbar__links a:hover::after,
+.navbar__links a:focus-visible::after {
+  width: 100%;
+}
+
+.navbar__links a:hover {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+/* Hamburger button — hidden on desktop */
+.navbar__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.hamburger-icon {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-white);
+  transition: transform var(--transition-medium), opacity var(--transition-fast), background-color var(--transition-fast);
+  border-radius: 2px;
+}
+
+/* Scrolled state */
+.site-header.navbar--scrolled {
+  background-color: var(--color-primary);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* Active nav link */
+.navbar__links a.active {
+  color: var(--color-accent);
+}
+
+/* Mobile — breakpoint < 768px */
+@media (max-width: 767px) {
+  .navbar__links {
+    display: none;
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    background-color: var(--color-primary);
+    padding: var(--space-4) 0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar__links.is-open {
+    display: flex;
+  }
+
+  .navbar__links li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .navbar__links a {
+    display: block;
+    padding: var(--space-4) var(--space-6);
+  }
+
+  .navbar__links a::after {
+    display: none;
+  }
+
+  .navbar__toggle {
+    display: flex;
+  }
+
+  /* Hamburger → X animation when open */
+  .navbar__toggle[aria-expanded="true"] .hamburger-icon:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+  }
+  .navbar__toggle[aria-expanded="true"] .hamburger-icon:nth-child(2) {
+    opacity: 0;
+  }
+  .navbar__toggle[aria-expanded="true"] .hamburger-icon:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+  }
+}
+
+/* ============================================================
+   4.2 — HERO SECTION
+   ============================================================ */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  min-height: 100vh; /* fallback for browsers without svh support */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: calc(var(--nav-height) + var(--space-16)) var(--space-6) var(--space-16);
+  background-color: var(--color-primary); /* fallback if image fails */
+  background-image:
+    linear-gradient(
+      135deg,
+      rgba(13, 37, 69, 0.88) 0%,
+      rgba(13, 37, 69, 0.65) 100%
+    ),
+    url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1920&q=80&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    background-attachment: fixed;
+  }
+}
+
+.hero__content {
+  max-width: 780px;
+  width: 100%;
+  z-index: 1;
+}
+
+.hero__title {
+  font-family: var(--font-heading);
+  font-size: var(--hero-title-size);
+  font-weight: 700;
+  color: var(--color-white);
+  line-height: 1.15;
+  margin-bottom: var(--space-6);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.hero__tagline {
+  font-family: var(--font-body);
+  font-size: var(--text-xl);
+  color: rgba(255, 255, 255, 0.92);
+  margin-bottom: var(--space-12);
+  line-height: 1.5;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero__ctas {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+  .hero__title {
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+  }
+
+  .hero__tagline {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-8);
+  }
+
+  .hero__ctas {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+  }
+}
+
+/* ============================================================
+   4.3 — SERVICES SECTION
+   ============================================================ */
+
+.services {
+  padding: var(--space-24) var(--space-6);
+  background-color: var(--color-off-white);
+}
+
+.section-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-4xl);
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: var(--space-4);
+}
+
+.section-subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-bottom: var(--space-16);
+}
+
+/* Grid — mobile first (1 col) */
+.services__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+/* 2 cols on tablet */
+@media (min-width: 768px) {
+  .services__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 3 cols on desktop */
+@media (min-width: 1024px) {
+  .services__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Service card */
+.service-card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition:
+    transform var(--transition-medium),
+    border-color var(--transition-medium),
+    box-shadow var(--transition-medium);
+}
+
+.service-card__icon {
+  font-size: var(--text-4xl);
+  line-height: 1;
+}
+
+.service-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.service-card__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  flex: 1;
+}
+
+/* Hover only on pointer devices (Req 3.5) */
+@media (hover: hover) and (pointer: fine) {
+  .service-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--color-accent);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* Focus visible for keyboard navigation */
+.service-card:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.3);
+}
+
+/* ============================================================
+   4.4 — ABOUT SECTION
+   ============================================================ */
+
+.about {
+  padding: var(--space-24) var(--space-6);
+  background-color: var(--color-white);
+}
+
+/* Layout — mobile first (single column) */
+.about__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-16);
+  margin-top: var(--space-12);
+}
+
+/* 2-column layout on tablet+ */
+@media (min-width: 768px) {
+  .about__layout {
+    grid-template-columns: 3fr 2fr;
+    align-items: start;
+  }
+}
+
+.about__subtitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+  margin-bottom: var(--space-6);
+}
+
+.about__text p {
+  margin-bottom: var(--space-4);
+  color: var(--color-text);
+  line-height: 1.8;
+}
+
+.about__values {
+  list-style: none;
+  margin-top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.about__values li {
+  padding-left: var(--space-6);
+  position: relative;
+  color: var(--color-text);
+}
+
+.about__values li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+}
+
+/* Lawyer card */
+.lawyer-card {
+  background-color: var(--color-off-white);
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+  padding-bottom: var(--space-8);
+  border: 1px solid var(--color-border);
+}
+
+.lawyer-card__image-wrapper {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background-color: var(--color-border);
+}
+
+.lawyer-card__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lawyer-card__info {
+  padding: var(--space-6) var(--space-6) 0;
+}
+
+.lawyer-card__name {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+.lawyer-card__specialty {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-4);
+}
+
+.lawyer-card__bio {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* ============================================================
+   4.5 — CONTACT SECTION
+   ============================================================ */
+
+.contact {
+  padding: var(--space-24) var(--space-6);
+  background-color: var(--color-off-white);
+}
+
+/* Layout — mobile first (single column) */
+.contact__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-12);
+  margin-top: var(--space-12);
+}
+
+/* 2-column on tablet+ */
+@media (min-width: 768px) {
+  .contact__layout {
+    grid-template-columns: 3fr 2fr;
+    align-items: start;
+  }
+}
+
+/* Form */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.form-group label {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.form-required {
+  color: var(--color-error);
+}
+
+.form-optional {
+  color: var(--color-text-muted);
+  font-weight: 400;
+  font-size: var(--text-xs);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: 6px;
+  background-color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  width: 100%;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.2);
+  outline: none;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.7;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+/* Inline error */
+.form-error {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-error);
+  min-height: 1.25rem;
+  display: block;
+}
+
+/* Success message */
+.form-success {
+  background-color: #d4edda;
+  color: var(--color-success);
+  border: 1px solid #c3e6cb;
+  border-radius: 6px;
+  padding: var(--space-4) var(--space-6);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+}
+
+/* Contact info aside */
+.contact-info {
+  background-color: var(--color-primary);
+  border-radius: 12px;
+  padding: var(--space-8);
+  font-style: normal;
+}
+
+.contact-info__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--color-white);
+  margin-bottom: var(--space-6);
+}
+
+.contact-info__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.contact-info__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+}
+
+.contact-info__icon {
+  flex-shrink: 0;
+  font-size: var(--text-xl);
+  line-height: 1.4;
+}
+
+.contact-info__item a {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.contact-info__item a:hover {
+  text-decoration: underline;
+}
+
+.contact-info__schedule {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.8;
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ============================================================
+   4.6 — FOOTER
+   ============================================================ */
+
+.site-footer {
+  background-color: var(--color-primary);
+  color: rgba(255, 255, 255, 0.8);
+  padding: var(--space-12) var(--space-6);
+}
+
+.footer__container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .footer__container {
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    text-align: left;
+  }
+}
+
+.footer__name {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-white);
+  margin-bottom: var(--space-2);
+}
+
+.footer__copy {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.footer__legal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .footer__legal {
+    align-items: flex-end;
+  }
+}
+
+.footer__legal a {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.footer__legal a:hover {
+  color: var(--color-accent);
+}
+
+.footer__social {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+}
+
+.footer__social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: var(--color-white);
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.footer__social a:hover {
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   GLOBAL UTILITIES & BUTTONS
+   ============================================================ */
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-8);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn--primary {
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+  border-color: var(--color-accent);
+}
+
+.btn--primary:hover {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: var(--color-primary);
+}
+
+.btn--secondary {
+  background-color: transparent;
+  color: var(--color-white);
+  border-color: var(--color-white);
+}
+
+.btn--secondary:hover {
+  background-color: var(--color-white);
+  color: var(--color-primary);
+}
+
+.btn--full {
+  width: 100%;
+}
+
+/* Screen-reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Section padding utility used by sections missing explicit styles */
+.section-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}

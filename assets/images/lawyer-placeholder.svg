@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300" role="img" aria-label="Foto de perfil de Ana González">
+  <circle cx="150" cy="150" r="150" fill="#DDD8CE"/>
+  <circle cx="150" cy="150" r="149" fill="none" stroke="#C9A84C" stroke-width="2"/>
+  <text
+    x="150"
+    y="165"
+    font-family="Georgia, serif"
+    font-size="80"
+    font-weight="700"
+    fill="#0D2545"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    aria-hidden="true">AG</text>
+</svg>
