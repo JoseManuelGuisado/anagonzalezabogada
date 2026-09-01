@@ -15,6 +15,19 @@
  * @param {Object} [params={}]
  */
 function trackEvent(eventName, params) {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  if (Array.isArray(window.dataLayer)) {
+    try {
+      window.dataLayer.push(Object.assign({ event: eventName }, params || {}));
+      return;
+    } catch (err) {
+      console.error('[GTM] Error al enviar evento al dataLayer:', eventName, err);
+    }
+  }
+
   if (typeof window.gtag === 'function') {
     try {
       window.gtag('event', eventName, params || {});
@@ -22,6 +35,21 @@ function trackEvent(eventName, params) {
       console.error('[GA4] Error al disparar evento:', eventName, err);
     }
   }
+}
+
+function bindTrackedCtas(root) {
+  var scope = root || document;
+  if (!scope || typeof scope.querySelectorAll !== 'function') return;
+
+  scope.querySelectorAll('.js-cta[data-cta-name]').forEach(function (element) {
+    if (element.dataset.trackingBound === 'true') return;
+
+    element.addEventListener('click', function () {
+      trackEvent('cta_click', { cta_name: element.dataset.ctaName });
+    });
+
+    element.dataset.trackingBound = 'true';
+  });
 }
 
 /* ============================================================
@@ -34,7 +62,7 @@ function trackEvent(eventName, params) {
  * @returns {string}
  */
 function getFooterYear(year) {
-  return String(year);
+  return String(Math.trunc(year));
 }
 
 function initFooterYear() {
@@ -364,17 +392,36 @@ function initContactForm() {
 
 /* ============================================================
    10.x — GOOGLE ANALYTICS 4
-   (se añade en tarea 11.2)
    ============================================================ */
 
 /* ============================================================
    INICIALIZACIÓN
    ============================================================ */
 
-document.addEventListener('DOMContentLoaded', function () {
+function initApp() {
   initFooterYear();
   initNavbarScroll();
   initHamburgerMenu();
   initSmoothScroll();
+  bindTrackedCtas(document);
   initContactForm();
-});
+}
+
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', initApp);
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    bindTrackedCtas: bindTrackedCtas,
+    EMAIL_REGEX: EMAIL_REGEX,
+    focusFirstError: focusFirstError,
+    getFooterYear: getFooterYear,
+    getFormData: getFormData,
+    initApp: initApp,
+    shouldNavbarBeScrolled: shouldNavbarBeScrolled,
+    toggleMenuState: toggleMenuState,
+    trackEvent: trackEvent,
+    validateForm: validateForm
+  };
+}
