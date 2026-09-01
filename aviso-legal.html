@@ -5,16 +5,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aviso Legal | Ana González Abogada</title>
   <meta name="description" content="Aviso legal y condiciones de uso del sitio web de Ana González Abogada.">
+  <link rel="icon" type="image/png" href="assets/images/icono_gris.png">
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var firstScript = d.getElementsByTagName(s)[0];
+      var gtmScript = d.createElement(s);
+      var dataLayerParam = l !== 'dataLayer' ? '&l=' + l : '';
+      gtmScript.async = true;
+      gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dataLayerParam;
+      firstScript.parentNode.insertBefore(gtmScript, firstScript);
+    })(window, document, 'script', 'dataLayer', 'GTM-W8XKS29X');
+  </script>
+
+  <!-- Google Fonts: preconnect para rendimiento -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8XKS29X"
+            height="0"
+            width="0"
+            style="display:none;visibility:hidden"
+            title="Google Tag Manager"></iframe>
+  </noscript>
+
+  <header class="site-header" role="banner">
+    <nav class="navbar" aria-label="Navegación principal">
+      <a class="navbar__logo" href="index.html#inicio" aria-label="Ana González Abogada — Inicio" title="Ir al inicio del despacho Ana González Abogada">
+        <img src="assets/images/logo_gris_horizontal.png"
+             alt="Logotipo horizontal de Ana González Abogada"
+             title="Ana González Abogada"
+             class="navbar__logo-image">
+      </a>
+      <ul class="navbar__links" id="nav-menu" role="list">
+        <li><a href="index.html#inicio" title="Ir a la sección de inicio">Inicio</a></li>
+        <li><a href="index.html#servicios" title="Ir a la sección de servicios legales">Servicios</a></li>
+        <li><a href="index.html#nosotros" title="Ir a la sección sobre el despacho">Nosotros</a></li>
+        <li><a href="index.html#contacto" title="Ir a la sección de contacto">Contacto</a></li>
+      </ul>
+      <button class="navbar__toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menú de navegación" type="button">
+        <span class="hamburger-icon" aria-hidden="true"></span>
+        <span class="hamburger-icon" aria-hidden="true"></span>
+        <span class="hamburger-icon" aria-hidden="true"></span>
+      </button>
+    </nav>
+  </header>
+
   <main class="legal-page" id="contenido-principal">
     <section class="about">
       <div class="section-container">
         <h1 class="section-title">Aviso Legal</h1>
         <p>Este sitio web tiene por objeto ofrecer información general sobre los servicios profesionales prestados por Ana González Abogada. El acceso y navegación atribuyen la condición de usuario e implican la aceptación de las condiciones aquí recogidas.</p>
         <h2 class="about__subtitle">Titularidad</h2>
-        <p>La titular del sitio es Ana González Abogada. Para cualquier comunicación relacionada con este sitio puede utilizarse el correo <a href="mailto:info@anagonzalezabogada.es" title="Enviar email a Ana González Abogada">info@anagonzalezabogada.es</a>.</p>
+        <p>La titular del sitio es Ana González Abogada, con domicilio profesional en C/ Morón, 42 A. 41540 La Puebla de Cazalla (Sevilla), teléfono <a href="tel:+34687827441" title="Llamar a Ana González Abogada">687 82 74 41</a> y correo <a href="mailto:info@anagonzalezabogada.es" title="Enviar email a Ana González Abogada">info@anagonzalezabogada.es</a>.</p>
         <h2 class="about__subtitle">Uso del sitio</h2>
         <p>El usuario se compromete a hacer un uso adecuado de los contenidos y servicios, absteniéndose de emplearlos para actividades ilícitas, contrarias a la buena fe o que puedan dañar el funcionamiento del sitio.</p>
         <h2 class="about__subtitle">Propiedad intelectual y responsabilidad</h2>
@@ -23,5 +75,31 @@
       </div>
     </section>
   </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer__container">
+      <div class="footer__brand">
+        <p class="footer__name">Ana González Abogada</p>
+        <p class="footer__copy">© <span id="footer-year"></span> Todos los derechos reservados.</p>
+      </div>
+      <nav class="footer__legal" aria-label="Navegación legal">
+        <a href="privacidad.html" title="Política de Privacidad">Política de Privacidad</a>
+        <a href="aviso-legal.html" title="Aviso Legal">Aviso Legal</a>
+      </nav>
+      <div class="footer__social">
+        <a href="https://www.linkedin.com/in/anagonzalezabogada"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Perfil de LinkedIn de Ana González Abogada (se abre en nueva pestaña)"
+           title="LinkedIn — Ana González Abogada">
+          <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script defer src="assets/js/main.js"></script>
 </body>
 </html>

@@ -7,8 +7,8 @@
 
 :root {
   /* --- Paleta de colores --- */
-  --color-primary:       #0D2545; /* Azul marino profundo */
-  --color-primary-light: #1A3A6B; /* Azul marino claro (hover) */
+  --color-primary:       #231f20; /* Negro carbón corporativo */
+  --color-primary-light: #4a4345; /* Variante clara para hover y degradados */
 
   --color-accent:        #C9A84C; /* Dorado corporativo */
   --color-accent-hover:  #A8872E; /* Dorado oscuro */
@@ -246,6 +246,7 @@ select,
   left: 0;
   width: 100%;
   z-index: 1000;
+  background-color: var(--color-primary);
   transition: background-color var(--transition-medium), box-shadow var(--transition-medium);
 }
 
@@ -261,16 +262,18 @@ select,
 
 /* Logo */
 .navbar__logo {
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
   flex-shrink: 0;
 }
 
-.navbar__logo-text {
-  font-family: var(--font-heading);
-  font-size: var(--text-xl);
-  font-weight: 700;
-  color: var(--color-white);
-  letter-spacing: 0.02em;
+.navbar__logo-image {
+  display: block;
+  width: auto;
+  max-width: auto;
+  height: 72px;
+  object-fit: contain;
 }
 
 /* Nav links — desktop */
@@ -412,8 +415,8 @@ select,
   background-image:
     linear-gradient(
       135deg,
-      rgba(13, 37, 69, 0.88) 0%,
-      rgba(13, 37, 69, 0.65) 100%
+      rgba(35, 31, 32, 0.9) 0%,
+      rgba(74, 67, 69, 0.68) 100%
     ),
     url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1920&q=80&auto=format&fit=crop');
   background-size: cover;
@@ -432,6 +435,13 @@ select,
   max-width: 780px;
   width: 100%;
   z-index: 1;
+}
+
+.hero__brand-logo {
+  width: clamp(92px, 16vw, 164px);
+  height: auto;
+  margin: 0 auto var(--space-6);
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.24));
 }
 
 .hero__title {
@@ -462,6 +472,15 @@ select,
 
 /* Mobile adjustments */
 @media (max-width: 767px) {
+  .navbar__logo-image {
+    max-width: 190px;
+  }
+
+  .hero__brand-logo {
+    width: clamp(84px, 28vw, 128px);
+    margin-bottom: var(--space-4);
+  }
+
   .hero__title {
     font-size: clamp(1.75rem, 8vw, 2.5rem);
   }
