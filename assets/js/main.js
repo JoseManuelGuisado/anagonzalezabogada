@@ -265,6 +265,9 @@ function validateForm(data) {
   } else if (!EMAIL_REGEX.test(data.email.trim())) {
     errors.email = 'Introduce un correo electrónico válido.';
   }
+  if (!data.phone || !data.phone.trim()) {
+    errors.phone = 'El teléfono es obligatorio.';
+  }
   if (!data.subject || !data.subject.trim()) {
     errors.subject = 'El asunto es obligatorio.';
   }
@@ -290,6 +293,7 @@ function displayErrors(errors) {
   var fieldMap = {
     name:    'error-name',
     email:   'error-email',
+    phone:   'error-phone',
     subject: 'error-subject',
     message: 'error-message'
   };
@@ -314,7 +318,7 @@ function displayErrors(errors) {
  * Limpia todos los mensajes de error del formulario.
  */
 function clearErrors() {
-  ['error-name', 'error-email', 'error-subject', 'error-message'].forEach(function (id) {
+  ['error-name', 'error-email', 'error-phone', 'error-subject', 'error-message'].forEach(function (id) {
     var el = document.getElementById(id);
     if (el) { el.textContent = ''; }
   });
@@ -325,7 +329,7 @@ function clearErrors() {
  * @param {Object.<string, string>} errors
  */
 function focusFirstError(errors) {
-  var fieldIds = { name: 'field-name', email: 'field-email', subject: 'field-subject', message: 'field-message' };
+  var fieldIds = { name: 'field-name', email: 'field-email', phone: 'field-phone', subject: 'field-subject', message: 'field-message' };
   var firstField = Object.keys(errors)[0];
   if (firstField && fieldIds[firstField]) {
     var el = document.getElementById(fieldIds[firstField]);

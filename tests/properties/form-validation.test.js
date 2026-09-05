@@ -19,7 +19,7 @@ function createValidFormArbitrary() {
   return fc.record({
     name: fc.stringMatching(/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,40}$/),
     email: createValidEmailArbitrary(),
-    phone: fc.option(fc.stringMatching(/^[0-9 +()-]{0,20}$/), { nil: '' }),
+    phone: fc.stringMatching(/^[0-9 +()-]{7,20}$/),
     subject: fc.stringMatching(/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ,.:-]{4,60}$/),
     message: fc.stringMatching(/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ,.:-]{10,160}$/)
   });
@@ -54,11 +54,11 @@ test('Property 1: validateForm rechaza campos obligatorios vacíos o con espacio
       fc.record({
         name: fc.oneof(blank, nonBlank),
         email: fc.oneof(blank, nonBlank),
-        phone: fc.option(nonBlank, { nil: '' }),
+        phone: fc.oneof(blank, nonBlank),
         subject: fc.oneof(blank, nonBlank),
         message: fc.oneof(blank, nonBlank)
       }).filter((data) => {
-        return !data.name.trim() || !data.email.trim() || !data.subject.trim() || !data.message.trim();
+        return !data.name.trim() || !data.email.trim() || !data.phone.trim() || !data.subject.trim() || !data.message.trim();
       }),
       async (data) => {
         // Feature: law-firm-website, Property 1: Validación rechaza campos obligatorios vacíos
@@ -67,6 +67,7 @@ test('Property 1: validateForm rechaza campos obligatorios vacíos o con espacio
 
         if (!data.name.trim()) assert.ok(result.errors.name);
         if (!data.email.trim()) assert.ok(result.errors.email);
+        if (!data.phone.trim()) assert.ok(result.errors.phone);
         if (!data.subject.trim()) assert.ok(result.errors.subject);
         if (!data.message.trim()) assert.ok(result.errors.message);
       }
@@ -84,7 +85,7 @@ test('Property 2: validateForm rechaza emails con formato incorrecto', async () 
         const result = validateForm({
           name: 'Ana Gonzalez',
           email: invalidEmail,
-          phone: '',
+          phone: '687 82 74 41',
           subject: 'Consulta legal',
           message: 'Necesito asesoramiento sobre un contrato.'
         });

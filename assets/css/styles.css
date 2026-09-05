@@ -568,6 +568,10 @@ select,
   line-height: 1;
 }
 
+.service-card__svg {
+  max-width: 36px;
+}
+
 .service-card__title {
   font-family: var(--font-heading);
   font-size: var(--text-xl);
@@ -860,6 +864,7 @@ select,
   flex-shrink: 0;
   font-size: var(--text-xl);
   line-height: 1.4;
+  width: 24px;
 }
 
 .contact-info__item a {
