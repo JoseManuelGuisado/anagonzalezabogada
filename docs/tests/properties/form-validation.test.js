@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fc = require('fast-check');
 const { JSDOM } = require('jsdom');
 
-const { getFooterYear, getFormData, validateForm } = require('../../docs/assets/js/main.js');
+const { getFooterYear, getFormData, validateForm } = require('../../../assets/js/main.js');
 
 function createValidEmailArbitrary() {
   return fc
