@@ -454,11 +454,21 @@ select,
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
+.hero__subtitle {
+  font-family: var(--font-body);
+  font-size: var(--hero-subtitle-size);
+  font-weight: 700;
+  color: var(--color-white);
+  line-height: 1.2;
+  margin-bottom: var(--space-8);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
 .hero__tagline {
   font-family: var(--font-body);
   font-size: var(--text-xl);
   color: rgba(255, 255, 255, 0.92);
-  margin-bottom: var(--space-12);
+  margin-bottom: var(--space-8);
   line-height: 1.5;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
