@@ -4,15 +4,15 @@ Sitio web corporativo estático para un despacho de abogados, implementado con H
 
 ## Estructura
 
-- `web/index.html`: página principal pública del sitio.
-- `web/assets/css/styles.css`: estilos globales y responsive.
-- `web/assets/js/main.js`: interacciones de navegación, formulario y analítica.
-- `web/assets/images/`: recursos gráficos del sitio.
+- `docs/index.html`: página principal pública del sitio.
+- `docs/assets/css/styles.css`: estilos globales y responsive.
+- `docs/assets/js/main.js`: interacciones de navegación, formulario y analítica.
+- `docs/assets/images/`: recursos gráficos del sitio.
 - `tests/`: pruebas automatizadas y checklists de validación.
 
 ## Desarrollo local
 
-Puedes abrir `web/index.html` directamente en el navegador o servir el proyecto como sitio estático.
+Puedes abrir `docs/index.html` directamente en el navegador o servir el proyecto como sitio estático.
 
 Ejemplo con Python:
 

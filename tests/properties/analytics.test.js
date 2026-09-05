@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fc = require('fast-check');
 const { JSDOM } = require('jsdom');
 
-const { bindTrackedCtas, trackEvent } = require('../../web/assets/js/main.js');
+const { bindTrackedCtas, trackEvent } = require('../../docs/assets/js/main.js');
 
 test('Property 8: cualquier CTA rastreable dispara exactamente un evento con su identificador', async () => {
   await fc.assert(

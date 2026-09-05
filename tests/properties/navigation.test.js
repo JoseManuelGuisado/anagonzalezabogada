@@ -2,7 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const fc = require('fast-check');
 
-const { shouldNavbarBeScrolled, toggleMenuState } = require('../../web/assets/js/main.js');
+const { shouldNavbarBeScrolled, toggleMenuState } = require('../../docs/assets/js/main.js');
 
 test('Property 7: toggleMenuState siempre invierte el estado y dos toggles restauran el original', async () => {
   await fc.assert(
