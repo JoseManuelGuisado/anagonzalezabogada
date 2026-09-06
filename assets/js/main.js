@@ -366,6 +366,9 @@ function initContactForm() {
         var result = validateForm(data);
 
         if (result.isValid) {
+          if (typeof window !== 'undefined' && typeof window.openWhatsAppContact === 'function') {
+            window.openWhatsAppContact(data);
+          }
           showSuccessMessage();
           // GA4 event tracked in task 11.4 — trackEvent placeholder
           if (typeof trackEvent === 'function') {

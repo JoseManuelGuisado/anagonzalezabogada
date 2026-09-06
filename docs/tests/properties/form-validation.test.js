@@ -4,6 +4,7 @@ const fc = require('fast-check');
 const { JSDOM } = require('jsdom');
 
 const { getFooterYear, getFormData, validateForm } = require('../../../assets/js/main.js');
+const { WHATSAPP_PHONE, buildWhatsAppMessage, createWhatsAppUrl } = require('../../../assets/js/form.js');
 
 function createValidEmailArbitrary() {
   return fc
@@ -135,6 +136,21 @@ test('Property 5: getFooterYear devuelve exactamente 4 dígitos para años váli
       const formattedYear = getFooterYear(year);
       assert.match(formattedYear, /^\d{4}$/);
       assert.equal(formattedYear, String(year));
+    }),
+    { numRuns: 100 }
+  );
+});
+
+test('Property 6: createWhatsAppUrl codifica el mensaje y normaliza el teléfono', async () => {
+  await fc.assert(
+    fc.asyncProperty(createValidFormArbitrary(), async (data) => {
+      const url = createWhatsAppUrl(data, '+34 687 82 74 41');
+      const parsedUrl = new URL(url);
+      const expectedMessage = buildWhatsAppMessage(data);
+
+      assert.equal(parsedUrl.origin, 'https://wa.me');
+      assert.equal(parsedUrl.pathname, '/' + WHATSAPP_PHONE);
+      assert.equal(parsedUrl.searchParams.get('text'), expectedMessage);
     }),
     { numRuns: 100 }
   );
