@@ -1071,3 +1071,7 @@ select,
   max-width: var(--max-width);
   margin: 0 auto;
 }
+
+.text-justify {
+  text-align: justify !important;
+}
