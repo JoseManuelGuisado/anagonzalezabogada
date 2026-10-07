@@ -8,3 +8,5 @@ Disallow: /python/
 Disallow: /node_modules/
 Disallow: /.git/
 Disallow: /.github/
+
+Sitemap: https://anagonzalezabogada.es/sitemap.xml
