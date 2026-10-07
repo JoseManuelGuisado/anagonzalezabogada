@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /assets/
+Allow: /assets/images/
+Allow: /assets/css/
+Allow: /assets/js/
+Disallow: /python/
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.github/
