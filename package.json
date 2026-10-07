@@ -4,8 +4,9 @@
   "private": true,
   "description": "Sitio web estático para el despacho Ana González Abogada",
   "scripts": {
+    "markdown": "node scripts/generate-markdown.js",
     "sitemap": "node scripts/generate-sitemap.js",
-    "pretest": "npm run sitemap",
+    "pretest": "npm run sitemap && npm run markdown",
     "test": "node --test"
   },
   "devDependencies": {

@@ -1,13 +1,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const { hostname, publicPages } = require('./site-pages');
 
 const siteRoot = path.resolve(__dirname, '..');
-const hostname = 'https://anagonzalezabogada.es';
-const publicPages = [
-  { file: 'index.html', url: '/' },
-  { file: 'aviso-legal.html', url: '/aviso-legal.html' },
-  { file: 'privacidad.html', url: '/privacidad.html' }
-];
 
 function toW3CDate(filePath) {
   const stats = fs.statSync(filePath);

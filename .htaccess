@@ -1,1 +1,24 @@
 DirectoryIndex index.html
+
+AddType text/markdown .md
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+
+	RewriteCond %{HTTP:Accept} text/markdown [NC]
+	RewriteRule ^$ index.md [L,T=text/markdown,E=IS_MARKDOWN:1]
+
+	RewriteCond %{HTTP:Accept} text/markdown [NC]
+	RewriteRule ^index\.html$ index.md [L,T=text/markdown,E=IS_MARKDOWN:1]
+
+	RewriteCond %{HTTP:Accept} text/markdown [NC]
+	RewriteRule ^aviso-legal\.html$ aviso-legal.md [L,T=text/markdown,E=IS_MARKDOWN:1]
+
+	RewriteCond %{HTTP:Accept} text/markdown [NC]
+	RewriteRule ^privacidad\.html$ privacidad.md [L,T=text/markdown,E=IS_MARKDOWN:1]
+</IfModule>
+
+<IfModule mod_headers.c>
+	Header merge Vary Accept env=IS_MARKDOWN
+	Header always set Content-Type "text/markdown; charset=UTF-8" env=IS_MARKDOWN
+</IfModule>
