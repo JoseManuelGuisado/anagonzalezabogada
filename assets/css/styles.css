@@ -671,6 +671,72 @@ select,
   color: var(--color-accent);
 }
 
+.podcast {
+  margin-top: var(--space-16);
+  padding: var(--space-8);
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--color-primary), #26394a);
+  color: var(--color-white);
+}
+
+.podcast__heading {
+  margin-bottom: var(--space-6);
+}
+
+.podcast__title {
+  margin-bottom: var(--space-2);
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+}
+
+.podcast__description {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.podcast__episodes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 152px;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0 0 var(--space-3);
+  max-height: calc(152px + var(--space-4) + var(--space-3));
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y mandatory;
+  scrollbar-color: var(--color-accent) rgba(255, 255, 255, 0.15);
+  scrollbar-width: thin;
+  list-style: none;
+}
+
+@media (max-width: 767px) {
+  .podcast__episodes {
+    grid-template-columns: minmax(0, 1fr);
+    max-height: calc(760px + var(--space-16) + var(--space-3));
+  }
+}
+
+.podcast__episode {
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.podcast__episodes:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.podcast__episode iframe {
+  display: block;
+  width: 100%;
+  height: 152px;
+  border: 0;
+  border-radius: 12px;
+  background-color: var(--color-white);
+}
+
 /* Lawyer card */
 .lawyer-card {
   background-color: var(--color-off-white);
